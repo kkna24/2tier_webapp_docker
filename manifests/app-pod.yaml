@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  labels:
+    app: application
+spec:
+  containers:
+  - name: application-container
+    image: 337983077566.dkr.ecr.us-east-1.amazonaws.com/webapp-and-db-repository:webapp-v0.1
+    ports:
+    - containerPort: 8080
+    env:
+    - name: DBHOST
+      value: "10.244.0.7" #replce with mysql pod ip
+    - name: DBUSER
+      value: "root"
+    - name: DBPWD
+      value: "pw"
+    - name: DBPORT
+      value: "3306"
+    - name: APP_COLOR
+      value: "blue"
+    - name: DATABASE
+      value: "employees"
+  imagePullSecrets:
+  - name: ecr-registry-secret
